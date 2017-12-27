@@ -1,42 +1,32 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom';
-import Header from './components/headerComponents/header';
-import Footer from './components/footerComponents/footer';
-import Homepage from './components/pages/homePage';
+import Form from './Form';
 
 class App extends Component {
-  constructor(){
-    super();
-    this.state ={
-      count: 0
-    };
-  }
 
-  increment = () => {
-    this.setState({ count: this.state.count * 1 });
-  }
+  state = {
+    fields: {},
+  };
+
+  onChange =updatedValue => {
+    this.setState({ fields:{
+      ...this.state.fieds,
+      ...updatedValue
+    }
+    });
+
+  };
+  
   render() {
     return (
-      <Router>
+  
       <div className="App">
-        <button onClick={this.increment}>Increment</button>
-        {this.state.count}
-
-        <Header />
-          <Route exact path='/' component={Homepage} />
-          <Route exact path='/About' component={About} />
-        
-
-        <Footer />
       
-      </div>
-      </Router>
+          <Form onChange={fields => this.onChange(fields)}/>
+            <p>{JSON.stringify(this.state.fields, null, 2)}</p>
+    </div>
+      
     );
   }
 }
